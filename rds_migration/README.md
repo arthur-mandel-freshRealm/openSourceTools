@@ -537,8 +537,8 @@ rds-migrate validate -e staging -d mydb
 
 ## License
 
-Internal FreshRealm tool - Not for external distribution
+MIT License
 
 ## Author
 
-Architected and Coded by Arthur Mandel (arthur.mandel@external.freshrealm.com)
+Architected and Coded by Arty Art (arthur.mandel@external.freshrealm.com)  and Matty Matt (matthew.ford@external.freshrealm.com
