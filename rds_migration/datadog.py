@@ -1,12 +1,13 @@
 """DataDog monitoring and metrics integration."""
 
 import time
+from collections.abc import Iterator
 from contextlib import contextmanager
-from typing import Any, Dict, Iterator, Optional
+from typing import Any, Optional
 
+from datadog import statsd
 from ddtrace import tracer
 from ddtrace.span import Span
-from datadog import statsd
 
 from rds_migration.logger import get_logger
 
@@ -65,7 +66,7 @@ class DataDogMonitor:
 
     @contextmanager
     def trace_operation(
-        self, operation_name: str, resource: str = "", tags: Optional[Dict[str, Any]] = None
+        self, operation_name: str, resource: str = "", tags: Optional[dict[str, Any]] = None
     ) -> Iterator[Optional[Span]]:
         """Trace an operation with DataDog APM.
 

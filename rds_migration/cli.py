@@ -135,7 +135,7 @@ def migrate(
     console.print(f"  DataDog Monitoring: {not no_datadog}")
     if not no_datadog:
         console.print(f"  DataDog Host: {datadog_host}:{datadog_port}")
-        console.print(f"  DataDog Service: databaseMigrationLibrary")
+        console.print("  DataDog Service: databaseMigrationLibrary")
     console.print()
 
     if dry_run:
@@ -213,7 +213,6 @@ def list_views(
 
         rds-migrate list-views --environment staging --database fulfillment_engine
     """
-    from rds_migration.database import Database
     from rds_migration.datadog import DataDogMonitor
     from rds_migration.materialized_views import MaterializedViewManager
 
@@ -335,7 +334,7 @@ def refresh_views(environment: str, database: str, view: Optional[str], concurre
                     f"[green]✓[/green] View refreshed successfully: {row_count:,} rows in {duration:.2f}s\n"
                 )
             else:
-                console.print(f"[red]✗[/red] View refresh failed\n")
+                console.print("[red]✗[/red] View refresh failed\n")
                 sys.exit(1)
         else:
             # Refresh all views

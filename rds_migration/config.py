@@ -1,7 +1,7 @@
 """Configuration management for RDS migrations."""
 
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import Field
 from pydantic_settings import BaseSettings
@@ -45,7 +45,7 @@ class MigrationConfig(BaseSettings):
     specific_database: Optional[str] = None
 
     # Excluded databases
-    excluded_databases: List[str] = Field(
+    excluded_databases: list[str] = Field(
         default_factory=lambda: [
             "culinary_operations_server_primary",
             "simone_primary",

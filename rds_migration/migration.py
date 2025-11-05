@@ -150,7 +150,7 @@ class DatabaseMigrator:
             return str(response["Parameter"]["Value"])
         except Exception as e:
             logger.error("Failed to retrieve password from SSM", path=ssm_path, error=str(e))
-            raise ValueError(f"Failed to retrieve password from SSM {ssm_path}: {str(e)}")
+            raise ValueError(f"Failed to retrieve password from SSM {ssm_path}: {str(e)}") from e
 
     def get_databases_to_migrate(self) -> list[str]:
         """Get list of databases to migrate.
@@ -504,7 +504,7 @@ class DatabaseMigrator:
         successful = sum(1 for r in results if r.success)
         failed = len(results) - successful
 
-        console.print(f"\n[bold]Migration Summary[/bold]")
+        console.print("\n[bold]Migration Summary[/bold]")
         console.print(f"  Total: {len(results)}")
         console.print(f"  [green]Successful: {successful}[/green]")
         console.print(f"  [red]Failed: {failed}[/red]\n")

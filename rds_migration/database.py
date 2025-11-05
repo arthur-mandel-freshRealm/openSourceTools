@@ -1,12 +1,13 @@
 """Database connection and management for RDS migrations."""
 
 import time
+from collections.abc import Iterator
 from contextlib import contextmanager
-from typing import Any, Iterator, Optional
+from typing import Any, Optional
 
 import boto3
 import psycopg
-from psycopg import Connection, sql
+from psycopg import Connection
 from psycopg.rows import dict_row
 
 from rds_migration.config import RDSConfig

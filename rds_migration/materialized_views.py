@@ -164,7 +164,7 @@ class MaterializedViewManager:
             )
 
             # Build refresh command
-            refresh_cmd = f"REFRESH MATERIALIZED VIEW"
+            refresh_cmd = "REFRESH MATERIALIZED VIEW"
             if concurrent:
                 refresh_cmd += " CONCURRENTLY"
             refresh_cmd += f" {view_name}"
