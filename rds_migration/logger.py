@@ -35,7 +35,7 @@ def configure_logging(log_level: str = "INFO", log_file: Optional[str] = None) -
         cache_logger_on_first_use=False,
     )
 
-    return structlog.get_logger()
+    return structlog.get_logger()  # type: ignore[no-any-return]
 
 
 def get_logger(name: Optional[str] = None, **kwargs: Any) -> structlog.BoundLogger:
@@ -43,4 +43,4 @@ def get_logger(name: Optional[str] = None, **kwargs: Any) -> structlog.BoundLogg
     logger = structlog.get_logger(name)
     if kwargs:
         logger = logger.bind(**kwargs)
-    return logger
+    return logger  # type: ignore[no-any-return]
