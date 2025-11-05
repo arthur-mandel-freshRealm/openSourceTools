@@ -2,6 +2,7 @@
 
 import sys
 from pathlib import Path
+from typing import Optional
 
 import click
 from rich.console import Console
@@ -80,7 +81,7 @@ def cli() -> None:
 )
 def migrate(
     environment: str,
-    database: str | None,
+    database: Optional[str],
     dry_run: bool,
     no_refresh_views: bool,
     work_dir: Path,
@@ -293,7 +294,7 @@ def list_views(
     is_flag=True,
     help="Use REFRESH MATERIALIZED VIEW CONCURRENTLY",
 )
-def refresh_views(environment: str, database: str, view: str | None, concurrent: bool) -> None:
+def refresh_views(environment: str, database: str, view: Optional[str], concurrent: bool) -> None:
     """Refresh materialized views in a database.
 
     Examples:
@@ -409,7 +410,7 @@ def refresh_views(environment: str, database: str, view: str | None, concurrent:
 )
 def validate(
     environment: str,
-    database: str | None,
+    database: Optional[str],
     log_level: str,
     datadog_host: str,
     datadog_port: int,

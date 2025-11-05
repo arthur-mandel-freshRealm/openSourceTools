@@ -57,7 +57,7 @@ class Database:
         logger.info("Retrieving password from SSM", parameter=parameter_name)
         ssm = boto3.client("ssm")
         response = ssm.get_parameter(Name=parameter_name, WithDecryption=True)
-        return response["Parameter"]["Value"]
+        return str(response["Parameter"]["Value"])
 
     @contextmanager
     def connection(self, database: str = "postgres") -> Iterator[Connection]:
@@ -106,7 +106,7 @@ class Database:
                     tags=[f"database:{database}"],
                 )
 
-            yield conn
+            yield conn  # type: ignore[misc]
 
         except psycopg.Error as e:
             duration = time.time() - start_time
@@ -176,7 +176,7 @@ class Database:
                         tags=[f"database:{database}"],
                     )
 
-                return results
+                return results  # type: ignore[return-value]
 
     def execute_command(
         self, database: str, command: str, params: Optional[dict[str, Any]] = None

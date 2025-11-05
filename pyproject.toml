@@ -47,6 +47,8 @@ dependencies = [
     "click>=8.1.0",
     "datadog>=0.47.0",
     "psycopg[binary]>=3.1.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
     "rich>=13.0.0",
     "structlog>=23.1.0",
 ]
@@ -59,6 +61,9 @@ dev = [
     "ruff>=0.1.0",
     "black>=23.9.0",
     "types-boto3>=1.0.0",
+]
+tracing = [
+    "ddtrace>=2.0.0",
 ]
 
 [project.urls]
@@ -117,6 +122,7 @@ strict_equality = true
 [[tool.mypy.overrides]]
 module = [
     "datadog.*",
+    "ddtrace.*",
     "structlog.*",
 ]
 ignore_missing_imports = true

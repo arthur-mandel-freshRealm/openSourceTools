@@ -118,7 +118,7 @@ class DatabaseMigrator:
 
         for instance in response["DBInstances"]:
             if instance["DbiResourceId"] == rds_id:
-                return instance["Endpoint"]["Address"]
+                return str(instance["Endpoint"]["Address"])
 
         raise ValueError(f"RDS instance not found: {rds_id}")
 
@@ -147,7 +147,7 @@ class DatabaseMigrator:
         try:
             response = ssm.get_parameter(Name=ssm_path, WithDecryption=True)
             logger.info("Password retrieved successfully", path=ssm_path)
-            return response["Parameter"]["Value"]
+            return str(response["Parameter"]["Value"])
         except Exception as e:
             logger.error("Failed to retrieve password from SSM", path=ssm_path, error=str(e))
             raise ValueError(f"Failed to retrieve password from SSM {ssm_path}: {str(e)}")
@@ -201,7 +201,7 @@ class DatabaseMigrator:
         return False
 
     def validate_databases(
-        self, databases: list[str] | None = None
+        self, databases: Optional[list[str]] = None
     ) -> dict[str, tuple[bool, list[str]]]:
         """Validate databases by comparing source and destination statistics.
 

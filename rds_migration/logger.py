@@ -2,12 +2,12 @@
 
 import logging
 import sys
-from typing import Any
+from typing import Any, Optional
 
 import structlog
 
 
-def configure_logging(log_level: str = "INFO", log_file: str | None = None) -> structlog.BoundLogger:
+def configure_logging(log_level: str = "INFO", log_file: Optional[str] = None) -> structlog.BoundLogger:
     """Configure structured logging with rich console output."""
 
     # Configure standard library logging
@@ -38,7 +38,7 @@ def configure_logging(log_level: str = "INFO", log_file: str | None = None) -> s
     return structlog.get_logger()
 
 
-def get_logger(name: str | None = None, **kwargs: Any) -> structlog.BoundLogger:
+def get_logger(name: Optional[str] = None, **kwargs: Any) -> structlog.BoundLogger:
     """Get a logger instance with optional context."""
     logger = structlog.get_logger(name)
     if kwargs:
