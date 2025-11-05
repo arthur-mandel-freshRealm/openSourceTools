@@ -145,9 +145,7 @@ class DataDogMonitor:
             logger.warning("Failed to record DataDog histogram", metric=metric_name, error=str(e))
 
     @contextmanager
-    def timed_operation(
-        self, metric_name: str, tags: Optional[list[str]] = None
-    ) -> Iterator[None]:
+    def timed_operation(self, metric_name: str, tags: Optional[list[str]] = None) -> Iterator[None]:
         """Time an operation and send duration to DataDog.
 
         Args:
@@ -181,7 +179,9 @@ class DataDogMonitor:
             f"destination:{destination_env}",
         ]
         self.increment_counter("migration.started", tags=tags)
-        logger.info("Migration started", database=database_name, source=source_env, dest=destination_env)
+        logger.info(
+            "Migration started", database=database_name, source=source_env, dest=destination_env
+        )
 
     def record_migration_success(
         self,
@@ -229,7 +229,9 @@ class DataDogMonitor:
         tags = [f"database:{database_name}", "status:failure"]
         self.increment_counter("migration.failed", tags=tags)
         self.histogram("migration.failure.duration.seconds", duration_seconds, tags=tags)
-        logger.error("Migration failed", database=database_name, error=error, duration=duration_seconds)
+        logger.error(
+            "Migration failed", database=database_name, error=error, duration=duration_seconds
+        )
 
     def record_materialized_view_refresh(
         self, database_name: str, view_name: str, row_count: int, duration_seconds: float

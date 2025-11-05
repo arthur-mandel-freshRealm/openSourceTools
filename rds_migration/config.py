@@ -74,7 +74,9 @@ class MigrationConfig(BaseSettings):
         case_sensitive = False
 
     @classmethod
-    def for_environment(cls, env: Environment, specific_db: Optional[str] = None) -> "MigrationConfig":
+    def for_environment(
+        cls, env: Environment, specific_db: Optional[str] = None
+    ) -> "MigrationConfig":
         """Create configuration for a specific environment."""
         if env == Environment.STAGING:
             source_rds_id = "c6ij7o5awpip"

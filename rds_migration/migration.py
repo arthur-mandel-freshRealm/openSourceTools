@@ -142,6 +142,7 @@ class DatabaseMigrator:
         logger.info("Retrieving password from SSM", path=ssm_path)
 
         import boto3
+
         ssm = boto3.client("ssm")
 
         try:
@@ -370,7 +371,9 @@ class DatabaseMigrator:
 
             if self.monitor:
                 self.monitor.histogram(
-                    "database.restore.duration.seconds", duration, tags=[f"database:{database_name}"]
+                    "database.restore.duration.seconds",
+                    duration,
+                    tags=[f"database:{database_name}"],
                 )
 
         except subprocess.CalledProcessError as e:
@@ -438,9 +441,7 @@ class DatabaseMigrator:
             )
 
             if self.monitor:
-                self.monitor.record_migration_success(
-                    database_name, duration, 0, views_refreshed
-                )
+                self.monitor.record_migration_success(database_name, duration, 0, views_refreshed)
 
             return result
 

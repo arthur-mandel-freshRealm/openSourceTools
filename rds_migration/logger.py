@@ -7,7 +7,9 @@ from typing import Any, Optional
 import structlog
 
 
-def configure_logging(log_level: str = "INFO", log_file: Optional[str] = None) -> structlog.BoundLogger:
+def configure_logging(
+    log_level: str = "INFO", log_file: Optional[str] = None
+) -> structlog.BoundLogger:
     """Configure structured logging with rich console output."""
 
     # Configure standard library logging
@@ -27,9 +29,7 @@ def configure_logging(log_level: str = "INFO", log_file: Optional[str] = None) -
             structlog.processors.TimeStamper(fmt="iso"),
             structlog.dev.ConsoleRenderer(colors=True),
         ],
-        wrapper_class=structlog.make_filtering_bound_logger(
-            getattr(logging, log_level.upper())
-        ),
+        wrapper_class=structlog.make_filtering_bound_logger(getattr(logging, log_level.upper())),
         context_class=dict,
         logger_factory=structlog.PrintLoggerFactory(),
         cache_logger_on_first_use=False,

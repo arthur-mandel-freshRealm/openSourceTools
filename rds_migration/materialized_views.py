@@ -34,7 +34,9 @@ class MaterializedViewManager:
         ],
     }
 
-    def __init__(self, database: Database, datadog_monitor: Optional[DataDogMonitor] = None) -> None:
+    def __init__(
+        self, database: Database, datadog_monitor: Optional[DataDogMonitor] = None
+    ) -> None:
         """Initialize materialized view manager.
 
         Args:
@@ -111,7 +113,9 @@ class MaterializedViewManager:
         results = self.database.execute_query(database_name, query, {"view_name": view_name})
         exists = len(results) > 0
 
-        logger.debug("Checked view existence", database=database_name, view=view_name, exists=exists)
+        logger.debug(
+            "Checked view existence", database=database_name, view=view_name, exists=exists
+        )
         return exists
 
     def get_view_row_count(self, database_name: str, view_name: str) -> int:
@@ -129,7 +133,9 @@ class MaterializedViewManager:
         try:
             results = self.database.execute_query(database_name, query)
             count = results[0]["count"] if results else 0
-            logger.debug("Retrieved view row count", database=database_name, view=view_name, count=count)
+            logger.debug(
+                "Retrieved view row count", database=database_name, view=view_name, count=count
+            )
             return count
         except Exception as e:
             logger.warning(
@@ -174,7 +180,11 @@ class MaterializedViewManager:
                 with self.monitor.trace_operation(
                     "materialized_view.refresh",
                     resource=view_name,
-                    tags={"database": database_name, "view": view_name, "concurrent": str(concurrent)},
+                    tags={
+                        "database": database_name,
+                        "view": view_name,
+                        "concurrent": str(concurrent),
+                    },
                 ):
                     self.database.execute_command(database_name, refresh_cmd)
             else:
@@ -229,7 +239,9 @@ class MaterializedViewManager:
         Returns:
             Dictionary mapping view names to (success, row_count, duration) tuples
         """
-        logger.info("Refreshing all materialized views", database=database_name, concurrent=concurrent)
+        logger.info(
+            "Refreshing all materialized views", database=database_name, concurrent=concurrent
+        )
 
         # Get all views
         views = self.list_materialized_views(database_name)
@@ -274,7 +286,9 @@ class MaterializedViewManager:
 
         else:
             # No known dependencies, refresh all views in alphabetical order
-            logger.info("No known dependencies, refreshing in alphabetical order", database=database_name)
+            logger.info(
+                "No known dependencies, refreshing in alphabetical order", database=database_name
+            )
             for view in views:
                 success, row_count, duration = self.refresh_materialized_view(
                     database_name, view.name, concurrent
@@ -344,7 +358,9 @@ class MaterializedViewManager:
 
         except Exception as e:
             error_msg = f"View validation failed: {str(e)}"
-            logger.error("View validation failed", database=database_name, view=view_name, error=str(e))
+            logger.error(
+                "View validation failed", database=database_name, view=view_name, error=str(e)
+            )
             return False, error_msg
 
     def get_view_dependencies(self, database_name: str, view_name: str) -> list[str]:

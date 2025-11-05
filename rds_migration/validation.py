@@ -53,7 +53,9 @@ class TableStats:
 class DatabaseValidator:
     """Validates databases and collects statistics."""
 
-    def __init__(self, database: Database, datadog_monitor: Optional[DataDogMonitor] = None) -> None:
+    def __init__(
+        self, database: Database, datadog_monitor: Optional[DataDogMonitor] = None
+    ) -> None:
         """Initialize database validator.
 
         Args:
@@ -193,7 +195,9 @@ class DatabaseValidator:
             )
             stats_list.append(stats)
 
-        logger.info("Table statistics collected", database=database_name, table_count=len(stats_list))
+        logger.info(
+            "Table statistics collected", database=database_name, table_count=len(stats_list)
+        )
 
         return stats_list
 
@@ -266,7 +270,9 @@ class DatabaseValidator:
         all_messages = errors + warnings
 
         if is_valid:
-            logger.info("Migration validation passed", database=database_name, warnings=len(warnings))
+            logger.info(
+                "Migration validation passed", database=database_name, warnings=len(warnings)
+            )
         else:
             logger.error(
                 "Migration validation failed",
@@ -282,9 +288,7 @@ class DatabaseValidator:
                 "validation.completed",
                 tags=[f"database:{database_name}", f"status:{status_tag}"],
             )
-            self.monitor.gauge(
-                "validation.errors", len(errors), tags=[f"database:{database_name}"]
-            )
+            self.monitor.gauge("validation.errors", len(errors), tags=[f"database:{database_name}"])
             self.monitor.gauge(
                 "validation.warnings", len(warnings), tags=[f"database:{database_name}"]
             )
@@ -372,9 +376,7 @@ class DatabaseValidator:
             "Materialized Views",
             str(source_stats.materialized_view_count),
             str(dest_stats.materialized_view_count),
-            match_status(
-                source_stats.materialized_view_count, dest_stats.materialized_view_count
-            ),
+            match_status(source_stats.materialized_view_count, dest_stats.materialized_view_count),
         )
         table.add_row(
             "Functions",
@@ -388,9 +390,7 @@ class DatabaseValidator:
             f"{dest_stats.total_row_count:,}",
             match_status(source_stats.total_row_count, dest_stats.total_row_count),
         )
-        table.add_row(
-            "Size (MB)", f"{source_stats.size_mb:.2f}", f"{dest_stats.size_mb:.2f}", ""
-        )
+        table.add_row("Size (MB)", f"{source_stats.size_mb:.2f}", f"{dest_stats.size_mb:.2f}", "")
 
         console.print()
         console.print(table)

@@ -13,7 +13,9 @@ logger = get_logger(__name__)
 class ConnectionManager:
     """Manages database connections, termination, and role management."""
 
-    def __init__(self, database: Database, datadog_monitor: Optional[DataDogMonitor] = None) -> None:
+    def __init__(
+        self, database: Database, datadog_monitor: Optional[DataDogMonitor] = None
+    ) -> None:
         """Initialize connection manager.
 
         Args:
@@ -161,9 +163,7 @@ class ConnectionManager:
 
         return len(connections)
 
-    def rotate_role_password(
-        self, database_name: str, role_name: str, new_password: str
-    ) -> bool:
+    def rotate_role_password(self, database_name: str, role_name: str, new_password: str) -> bool:
         """Rotate a role's password.
 
         Args:
