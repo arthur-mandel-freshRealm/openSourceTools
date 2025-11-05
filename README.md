@@ -51,4 +51,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Author
 
-Architected and Coded by Arthur Mandel (arthur.mandel@external.freshrealm.com)
+Architected and Coded by Arty Art (arthur.mandel@external.freshrealm.com) and Matty Matt (matthew.ford@external.freshrealm.com)
